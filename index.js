@@ -2,16 +2,18 @@ const express = require("express");
 const app = express();
 const child_process = require("child_process");
 var child = null;
+var children=[];
 
 app.get("/camera/feed", (req, res) => {
   try {
-    if (child !== null) {
-      console.log("child killed");
-      child.kill();
-      console.log("child killded 2nd time");
-      child = null;
-      // return;
-    }
+    // if (child !== null) {
+    //   console.log("child killed");
+    //   child.kill();
+    //   console.log("child killded 2nd time");
+    //   child = null;
+    //   // return;
+    // }
+
     // const child_process = require("child_process");
     res.header("content-type", "video/webm");
     const rtsp_url = req.query.rtsp_url;
@@ -30,6 +32,29 @@ app.get("/camera/feed", (req, res) => {
     //     );
 
     child = child_process.spawn(cmd[0], cmd.splice(1));
+    console.log("New *** child ,",child.pid);
+    if (children[0]){
+      if(children[0]==child){
+        console.log("WTFFFFFFFFFFFFFFFF!!!!!!");
+        //
+      }else{
+        // children[0].kill();
+        // children.pop();
+        children.push(child);
+      }
+    }else{
+      children.push(child);
+    }
+    if(children.length>3){
+      children[0].kill();
+      console.log("killed ",children[0].pid);
+      children[1].kill();
+      console.log("killed ",children[1].pid);
+      children.pop();
+      children.pop();
+    }
+    console.log("*** children:");
+    children.forEach((c)=>{console.log(c.pid);});
     // {
     //   stdio: ["ignore", "pipe"],
     // }
