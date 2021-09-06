@@ -1,0 +1,10 @@
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:6
+#EXT-X-MEDIA-SEQUENCE:0
+#EXTINF:5.706333,
+Sathya_Showroom_Back0.ts
+#EXTINF:4.000000,
+Sathya_Showroom_Back1.ts
+#EXTINF:5.750000,
+Sathya_Showroom_Back2.ts
