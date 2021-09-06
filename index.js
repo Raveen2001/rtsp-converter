@@ -46,12 +46,13 @@ app.get("/camera/feed", (req, res) => {
       children.push(child);
     }
     if(children.length>3){
-      children[0].kill();
-      console.log("killed ",children[0].pid);
-      children[1].kill();
-      console.log("killed ",children[1].pid);
-      children.pop();
-      children.pop();
+      let t= children.shift();
+      // children[0].kill();
+      t.kill()
+      console.log("killed ",t.pid);
+      // children[1].kill();
+      t=children.shift();
+      console.log("killed ",t.pid);
     }
     console.log("*** children:");
     children.forEach((c)=>{console.log(c.pid);});
